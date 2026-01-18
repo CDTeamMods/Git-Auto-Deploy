@@ -1,34 +1,35 @@
 {
   // HTTP server options
-  //"http-enabled": true,
-  //"http-host": "0.0.0.0",
-  //"http-port": 8001,
+  "http-enabled": true,
+  "http-host": "0.0.0.0",
+  "http-port": 8001,
 
   // HTTPS server options
-  //"https-enabled": false,
-  //"https-host": "0.0.0.0",
-  //"https-port": 8002,
+  "https-enabled": false,
+  "https-host": "0.0.0.0",
+  "https-port": 8002,
 
   // Web socket server options (used by web UI for real time updates)
-  //"wss-enabled": false,
-  //"wss-host": "0.0.0.0",
-  //"wss-port": 8003,
+  "wss-enabled": false,
+  "wss-host": "0.0.0.0",
+  "wss-port": 8003,
 
   // Web user interface options
-  //"web-ui-enabled": false,
-  //"web-ui-username": null,
-  //"web-ui-password": null,
-  //"web-ui-whitelist": ["127.0.0.1"],
+  "web-ui-enabled": false,
+  "web-ui-username": null,
+  "web-ui-password": null,
+  "web-ui-whitelist": ["127.0.0.1", "*"],
+  "web-ui-require-https": false,
 
   // TLS/SSL cert (necessary for HTTPS and web socket server to work)
-  //"ssl-key": null,  // If specified, holds the private key
-  //"ssl-cert": "cert.pem",  // Holds the public key or both the private and public keys
+  "ssl-key": null,  // If specified, holds the private key
+  "ssl-cert": "cert.pem",  // Holds the public key or both the private and public keys
 
   // File to store a copy of the console output
-  //"log-file": "~/gitautodeploy.log",
+  "log-file": "~/gitautodeploy.log",
 
   // File to store the process id (pid)
-  //"pid-file": "~/.gitautodeploy.pid",
+  "pid-file": "~/.gitautodeploy.pid",
 
   // Record all log levels by default
   "log-level": "INFO",
@@ -41,22 +42,18 @@
 
   "repositories": [
     {
-      "url": "https://github.com/olipo186/Git-Auto-Deploy.git",
+      "url": "https://github.com/CDTeamMods/Git-Auto-Deploy",
       "branch": "master",
       "remote": "origin",
       "path": "~/repositories/Git-Auto-Deploy",
       "deploy": "echo deploying"
     },
     {
-      "url": "https://github.com/github/gitignore",
-      "path": "~/repositories/gitignore"
-    },
-    {
       "url": "git@gitlab.com:gitlab-org/gitlab-ce.git",
       "path": "~/repositories/gitignore"
     },
     {
-      "url": "https://api.github.com/repos/olipo186/Git-Auto-Deploy",
+      "url": "https://api.github.com/repos/CDTeamMods/Git-Auto-Deploy",
       "deploy": "echo deploying after pull request",
       "filters": [
         {

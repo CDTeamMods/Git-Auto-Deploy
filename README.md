@@ -4,6 +4,10 @@ Git-Auto-Deploy consists of a small HTTP server that listens for Webhook request
 
 ![workflow](https://cloud.githubusercontent.com/assets/1056476/9344294/d3bc32a4-4607-11e5-9a44-5cd9b22e61d9.png)
 
+# Languages
+- [Português Brasil](./docs/pt-BR/README.md)
+- [English](#)
+
 # How does it work?
 
 When commits are pushed to your Git repository, the Git server will notify ```Git-Auto-Deploy``` by sending an HTTP POST request with a JSON body to a pre-configured URL (your-host:8001). The JSON body contains detailed information about the repository and what event that triggered the request. ```Git-Auto-Deploy``` parses and validates the request, and if all goes well it issues a ```git pull```.
@@ -46,18 +50,6 @@ To start ```Git-Auto-Deploy``` automatically on boot, open crontab in edit mode 
 
 You can also configure ```Git-Auto-Deploy``` to start on boot using an init.d-script (for Debian and Sys-V like init systems) or a service for systemd.Read more about starting Git-Auto-Deploy automatically using init.d or systemd.
 
-## Install and run GAD under Windows
-GAD runs under Windows but requires some requisites.
-
-1. Install Python 3.x using the [Windows installer](https://www.python.org/downloads/).
-2. Verify that Python is added to your [system PATH](https://technet.microsoft.com/en-us/library/cc772047(v=ws.11).aspx). Make sure ``C:\Python3x`` and ``C:\Python3x\Scripts`` (or wherever you installed it) is part of the PATH system environment variable.
-3. Install pip using the [``get-pip.py`` script](https://pip.pypa.io/en/latest/installing/)
-4. Install Git using the [official Git build for Windows](https://git-scm.com/download/win)
-5. Verify that Git is added to your [system PATH](https://technet.microsoft.com/en-us/library/cc772047(v=ws.11).aspx). Make sure that ```C:\Program Files\Git\cmd``` is added (should have been added automatically by the installer) as well as ```C:\Program Files\Git\bin``` (*not* added by default).
-6. Continue with the above instructions for [installing GAD from the repository](#install-from-repository-recommended-for-other-systems)
-
-## Alternative installation methods
-
 ## Command line options
 
 Below is a summarized list of the most common command line options. For a full list of available command line options, invoke the application with the argument ```--help``` or read the documentation article about all available command line options, environment variables and config attributes.
@@ -69,8 +61,18 @@ Command line option    | Environment variable | Config attribute | Description
 --config (-c) <path>   | GAD_CONFIG           |                  | Custom configuration file
 --pid-file <path>      | GAD_PID_FILE         | pidfilepath      | Specify a custom pid file
 --log-file <path>      | GAD_LOG_FILE         | logfilepath      | Specify a log file
+--log-level <level>    |                      | log-level        | Specify log level (default: INFO)
 --host <host>          | GAD_HOST             | host             | Address to bind to
 --port <port>          | GAD_PORT             | port             | Port to bind to
+
+### Log Levels
+Available log levels (from least to most verbose):
+* `CRITICAL`
+* `ERROR`
+* `WARNING`
+* `INFO` (default)
+* `DEBUG`
+* `NOTSET`
 
 ## Getting webhooks from git
 To make your git provider send notifications to ```Git-Auto-Deploy``` you will need to provide the hostname and port for your ```Git-Auto-Deploy``` instance. Instructions for the most common git providers is listed below.
@@ -103,7 +105,3 @@ To enable the Web Interface, update your `config.json`:
 }
 ```
 By default, the Web UI is accessible at `https://your-host:8001/` (requires HTTPS configuration) or `http://your-host:8001/` if HTTPS is disabled (not recommended for production).
-
-# More documentation
-
-[Have a look in the *docs* directory](./docs), where you'll find more detailed documentation on configurations, alternative installation methods, and example workflows.

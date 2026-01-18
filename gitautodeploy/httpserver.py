@@ -304,14 +304,19 @@ def WebhookRequestHandlerFactory(config, event_store, server_status, is_https=Fa
                 self.end_headers()
                 return False
 
-            self.send_error(403, "Web UI is only accessible through HTTPS")
+            # HTTPS is required but not available
+            msg = "Web UI is only accessible through HTTPS"
+            if self._config.get('https-enabled'):
+                msg += ". However, the HTTPS server does not appear to be running. Please check your SSL configuration and logs."
+
+            self.send_error(403, msg)
             return False
 
         def validate_web_ui_whitelist(self):
             """Verify that the client address is whitelisted"""
 
-            # Allow all if whitelist is empty
-            if len(self._config['web-ui-whitelist']) == 0:
+            # Allow all if whitelist is empty or contains '*'
+            if len(self._config['web-ui-whitelist']) == 0 or '*' in self._config['web-ui-whitelist']:
                 return True
 
             # Verify that client IP is whitelisted
