@@ -13,10 +13,12 @@ class Timeline extends Component {
   constructor(props) {
     super(props);
 
-    var host = window.location.protocol + '//' + window.location.host;
+    var host = '';
  
-    if (process.env.NODE_ENV === 'development') {
-      host = 'https://10.0.0.1:8002';
+    if (import.meta.env.DEV) {
+      // In development, we rely on Vite proxy (configured in vite.config.js)
+      // to forward requests to the backend running on http://127.0.0.1:8001
+      host = '';
     }
 
     this.state = {

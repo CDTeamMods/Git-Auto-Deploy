@@ -4,7 +4,7 @@ O Git-Auto-Deploy consiste em um pequeno servidor HTTP que escuta requisições 
 
 ![fluxo de trabalho](https://cloud.githubusercontent.com/assets/1056476/9344294/d3bc32a4-4607-11e5-9a44-5cd9b22e61d9.png)
 
-# Languages
+# Traduções:
 - [Português Brasil](#)
 - [English](../../README.md)
 
@@ -99,3 +99,27 @@ Para habilitar a Interface Web, atualize seu `config.json`:
 }
 ```
 Por padrão, a Interface Web é acessível em `https://seu-host:8001/` (requer configuração HTTPS) ou `http://seu-host:8001/` se HTTPS estiver desabilitado (não recomendado para produção).
+
+## Desenvolvimento (Web UI)
+
+A Interface Web é construída com React e Vite. Para contribuir ou modificar a Interface Web:
+
+1.  **Inicie o backend Python**:
+    ```bash
+    python -m gitautodeploy
+    ```
+2.  **Inicie o servidor de desenvolvimento Frontend**:
+    ```bash
+    cd webui
+    npm install
+    npm run dev
+    ```
+    Acesse `http://localhost:3000`. O servidor Vite está configurado para redirecionar requisições de API para o backend Python rodando na porta 8001.
+
+3.  **Compilar para Produção**:
+    Para atualizar os arquivos estáticos servidos pelo Python:
+    ```bash
+    cd webui
+    npm run build
+    ```
+    Isso compilará o aplicativo React e colocará a saída em `gitautodeploy/wwwroot`.

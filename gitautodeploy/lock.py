@@ -1,38 +1,32 @@
 
 class Lock():
-    """Simple implementation of a mutex lock using the file systems. Works on
-    *nix systems."""
+    """Simple implementation of a mutex lock using filelock."""
 
     path = None
     lock = None
+    _owned = False
 
     def __init__(self, path):
-        try:
-            from lockfile import LockFile
-        except ImportError:
-            from lockfile import FileLock
-            # Different naming in older versions of lockfile
-            LockFile = FileLock
-
+        from filelock import FileLock
         self.path = path
-        self.lock = LockFile(path)
+        self.lock = FileLock(path)
+        self._owned = False
 
     def obtain(self):
-        import os
         import logging
-        from lockfile import AlreadyLocked
+        from filelock import Timeout
         logger = logging.getLogger()
 
         try:
-            self.lock.acquire(0)
+            self.lock.acquire(timeout=0)
+            self._owned = True
             logger.debug("Successfully obtained lock: %s" % self.path)
-        except AlreadyLocked:
+        except Timeout:
             return False
 
         return True
 
     def release(self):
-        import os
         import logging
         logger = logging.getLogger()
 
@@ -40,15 +34,26 @@ class Lock():
             raise Exception("Unable to release lock that is owned by another process")
 
         self.lock.release()
+        self._owned = False
         logger.debug("Successfully released lock: %s" % self.path)
 
     def has_lock(self):
-        return self.lock.i_am_locking()
+        return self._owned
 
     def clear(self):
-        import os
         import logging
+        import os
         logger = logging.getLogger()
 
-        self.lock.break_lock()
+        if os.path.exists(self.path):
+            try:
+                os.remove(self.path)
+            except OSError:
+                pass
+            
+        # Also release internal state if we owned it
+        if self._owned:
+            self.lock.release()
+            self._owned = False
+
         logger.debug("Successfully cleared lock: %s" % self.path)

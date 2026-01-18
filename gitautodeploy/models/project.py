@@ -1,7 +1,4 @@
-try:
-    from collections.abc import MutableMapping
-except ImportError:
-    from collections import MutableMapping
+from collections.abc import MutableMapping
 from ..wrappers import GitWrapper
 from ..lock import Lock
 from ..wrappers import GitWrapper

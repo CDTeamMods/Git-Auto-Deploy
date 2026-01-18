@@ -94,10 +94,7 @@ def WebhookRequestHandlerFactory(config, event_store, server_status, is_https=Fa
             import logging
             import json
             import threading
-            try:
-                from urlparse import parse_qs
-            except ModuleNotFoundError:
-                from urllib.parse import parse_qs
+            from urllib.parse import parse_qs
 
             logger = logging.getLogger()
 

@@ -4,7 +4,7 @@ Git-Auto-Deploy consists of a small HTTP server that listens for Webhook request
 
 ![workflow](https://cloud.githubusercontent.com/assets/1056476/9344294/d3bc32a4-4607-11e5-9a44-5cd9b22e61d9.png)
 
-# Languages
+# Translations:
 - [Português Brasil](./docs/pt-BR/README.md)
 - [English](#)
 
@@ -105,3 +105,27 @@ To enable the Web Interface, update your `config.json`:
 }
 ```
 By default, the Web UI is accessible at `https://your-host:8001/` (requires HTTPS configuration) or `http://your-host:8001/` if HTTPS is disabled (not recommended for production).
+
+## Development (Web UI)
+
+The Web UI is built with React and Vite. To contribute or modify the Web UI:
+
+1.  **Run the Python backend**:
+    ```bash
+    python -m gitautodeploy
+    ```
+2.  **Run the Frontend development server**:
+    ```bash
+    cd webui
+    npm install
+    npm run dev
+    ```
+    Access `http://localhost:3000`. The Vite server is configured to proxy API requests to the Python backend running on port 8001.
+
+3.  **Build for Production**:
+    To update the static files served by Python:
+    ```bash
+    cd webui
+    npm run build
+    ```
+    This will compile the React app and place the output in `gitautodeploy/wwwroot`.
