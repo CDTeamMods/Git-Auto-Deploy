@@ -28,7 +28,7 @@ Clone the repository.
 
 Install the dependencies with [pip](http://www.pip-installer.org/en/latest/), a package manager for Python, by running the following command.
 
-    sudo pip install -r requirements.txt
+    pip install -r requirements.txt
 
 If you don't have pip installed, try installing it by running this from the command
 line:
@@ -126,6 +126,7 @@ The Web UI is built with React and Vite. To contribute or modify the Web UI:
     To update the static files served by Python:
     ```bash
     cd webui
+    npm install
     npm run build
     ```
     This will compile the React app and place the output in `gitautodeploy/wwwroot`.

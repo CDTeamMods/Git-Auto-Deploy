@@ -366,7 +366,7 @@ class GitAutoDeploy(object):
             return
 
         if not os.path.isfile(self._config['ssl-cert']):
-            self._startup_event.log_critical("Unable to activate SSL: File does not exist: %s" % self._config['ssl-cert'])
+            self._startup_event.log_warning("Unable to activate SSL: File does not exist: %s" % self._config['ssl-cert'])
             return
 
         # Setup
@@ -434,7 +434,7 @@ class GitAutoDeploy(object):
             return
 
         if not os.path.isfile(self._config['ssl-cert']):
-            self._startup_event.log_critical("Unable to activate SSL: File does not exist: %s" % self._config['ssl-cert'])
+            self._startup_event.log_warning("Unable to activate SSL: File does not exist: %s" % self._config['ssl-cert'])
             return
 
         try:

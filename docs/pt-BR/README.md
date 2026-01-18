@@ -28,7 +28,7 @@ Clone o repositório.
 
 Instale as dependências com o [pip](http://www.pip-installer.org/en/latest/), um gerenciador de pacotes para Python, executando o seguinte comando.
 
-    sudo pip install -r requirements.txt
+    pip install -r requirements.txt
 
 Se você não tiver o pip instalado, tente instalá-lo executando isto na linha de comando:
 
@@ -120,6 +120,7 @@ A Interface Web é construída com React e Vite. Para contribuir ou modificar a 
     Para atualizar os arquivos estáticos servidos pelo Python:
     ```bash
     cd webui
+    npm install
     npm run build
     ```
     Isso compilará o aplicativo React e colocará a saída em `gitautodeploy/wwwroot`.

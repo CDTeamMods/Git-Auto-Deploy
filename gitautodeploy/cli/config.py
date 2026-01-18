@@ -32,7 +32,7 @@ def get_config_defaults():
     config['http-port'] = 8001
 
     # HTTPS server options
-    config['https-enabled'] = True
+    config['https-enabled'] = False
     config['https-host'] = '0.0.0.0'
     config['https-port'] = 8002
 

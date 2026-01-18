@@ -116,3 +116,5 @@ dist
 # Vite
 dist
 build
+
+package-lock.json
