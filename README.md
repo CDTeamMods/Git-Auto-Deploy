@@ -20,20 +20,20 @@ You can install ```Git-Auto-Deploy``` in multiple ways. Below are instructions f
 
 ## Install from repository (recommended for other systems)
 
-When installing ```Git-Auto-Deploy``` from the repository, you'll need to make sure that Python (tested on version 3.9) and Git (tested on version 2.x) is installed on your system.
+When installing ```Git-Auto-Deploy``` from the repository, you'll need to make sure that python3 (tested on version 3.9) and Git (tested on version 2.x) is installed on your system.
 
 Clone the repository.
 
     git clone https://github.com/CDTeamMods/Git-Auto-Deploy.git
 
-Install the dependencies with [pip](http://www.pip-installer.org/en/latest/), a package manager for Python, by running the following command.
+Install the dependencies with [pip](http://www.pip-installer.org/en/latest/), a package manager for python3, by running the following command.
 
     pip install -r requirements.txt
 
 If you don't have pip installed, try installing it by running this from the command
 line:
 
-    curl https://bootstrap.pypa.io/get-pip.py | python
+    curl https://bootstrap.pypa.io/get-pip.py | python3
 
 Copy of the sample config and modify it. Read more about the configuration options. Make sure that ```pidfilepath``` is writable for the user running the script, as well as all paths configured for your repositories.
 
@@ -42,11 +42,11 @@ Copy of the sample config and modify it. Read more about the configuration optio
 
 Start ```Git-Auto-Deploy``` manually using;
 
-    python run.py --config config.json
+    python3 run.py --config config.json
 
 To start ```Git-Auto-Deploy``` automatically on boot, open crontab in edit mode using ```crontab -e``` and add the entry below.
 
-    python run.py startup
+    python3 run.py startup
 
 You can also configure ```Git-Auto-Deploy``` to start on boot using an init.d-script (for Debian and Sys-V like init systems) or a service for systemd.Read more about starting Git-Auto-Deploy automatically using init.d or systemd.
 
@@ -110,9 +110,9 @@ By default, the Web UI is accessible at `https://your-host:8001/` (requires HTTP
 
 The Web UI is built with React and Vite. To contribute or modify the Web UI:
 
-1.  **Run the Python backend**:
+1.  **Run the python3 backend**:
     ```bash
-    python -m gitautodeploy
+    python3 -m gitautodeploy
     ```
 2.  **Run the Frontend development server**:
     ```bash
@@ -120,10 +120,10 @@ The Web UI is built with React and Vite. To contribute or modify the Web UI:
     npm install
     npm run dev
     ```
-    Access `http://localhost:3000`. The Vite server is configured to proxy API requests to the Python backend running on port 8001.
+    Access `http://localhost:3000`. The Vite server is configured to proxy API requests to the python3 backend running on port 8001.
 
 3.  **Build for Production**:
-    To update the static files served by Python:
+    To update the static files served by python3:
     ```bash
     cd webui
     npm install

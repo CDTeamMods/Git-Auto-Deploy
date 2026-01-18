@@ -20,19 +20,19 @@ Você pode instalar o ```Git-Auto-Deploy``` de várias maneiras. Abaixo estão a
 
 ## Instalar do repositório (recomendado para outros sistemas)
 
-Ao instalar o ```Git-Auto-Deploy``` a partir do repositório, você precisará garantir que o Python (testado na versão 3.9) e o Git (testado na versão 2.x) estejam instalados no seu sistema.
+Ao instalar o ```Git-Auto-Deploy``` a partir do repositório, você precisará garantir que o python3 (testado na versão 3.9) e o Git (testado na versão 2.x) estejam instalados no seu sistema.
 
 Clone o repositório.
 
     git clone https://github.com/CDTeamMods/Git-Auto-Deploy.git
 
-Instale as dependências com o [pip](http://www.pip-installer.org/en/latest/), um gerenciador de pacotes para Python, executando o seguinte comando.
+Instale as dependências com o [pip](http://www.pip-installer.org/en/latest/), um gerenciador de pacotes para python3, executando o seguinte comando.
 
     pip install -r requirements.txt
 
 Se você não tiver o pip instalado, tente instalá-lo executando isto na linha de comando:
 
-    curl https://bootstrap.pypa.io/get-pip.py | python
+    curl https://bootstrap.pypa.io/get-pip.py | python3
 
 Copie o exemplo de configuração e modifique-o. Leia mais sobre as opções de configuração. Certifique-se de que o ```pid-file``` seja gravável para o usuário que executa o script, bem como todos os caminhos configurados para seus repositórios.
 
@@ -41,11 +41,11 @@ Copie o exemplo de configuração e modifique-o. Leia mais sobre as opções de 
 
 Inicie o ```Git-Auto-Deploy``` manualmente usando;
 
-    python run.py --config config.json
+    python3 run.py --config config.json
 
 Para iniciar o ```Git-Auto-Deploy``` automaticamente na inicialização, abra o crontab no modo de edição usando ```crontab -e``` e adicione a entrada abaixo.
 
-    python run.py startup
+    python3 run.py startup
 
 Você também pode configurar o ```Git-Auto-Deploy``` para iniciar na inicialização usando um script init.d (para sistemas init como Debian e Sys-V) ou um serviço para systemd. Leia mais sobre como iniciar o Git-Auto-Deploy automaticamente usando init.d ou systemd.
 
@@ -104,9 +104,9 @@ Por padrão, a Interface Web é acessível em `https://seu-host:8001/` (requer c
 
 A Interface Web é construída com React e Vite. Para contribuir ou modificar a Interface Web:
 
-1.  **Inicie o backend Python**:
+1.  **Inicie o backend python3**:
     ```bash
-    python -m gitautodeploy
+    python3 -m gitautodeploy
     ```
 2.  **Inicie o servidor de desenvolvimento Frontend**:
     ```bash
@@ -114,10 +114,10 @@ A Interface Web é construída com React e Vite. Para contribuir ou modificar a 
     npm install
     npm run dev
     ```
-    Acesse `http://localhost:3000`. O servidor Vite está configurado para redirecionar requisições de API para o backend Python rodando na porta 8001.
+    Acesse `http://localhost:3000`. O servidor Vite está configurado para redirecionar requisições de API para o backend python3 rodando na porta 8001.
 
 3.  **Compilar para Produção**:
-    Para atualizar os arquivos estáticos servidos pelo Python:
+    Para atualizar os arquivos estáticos servidos pelo python3:
     ```bash
     cd webui
     npm install
