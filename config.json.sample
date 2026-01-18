@@ -25,10 +25,10 @@
   //"ssl-cert": "cert.pem",  // Holds the public key or both the private and public keys
 
   // File to store a copy of the console output
-  "log-file": "~/gitautodeploy.log",
+  //"log-file": "~/gitautodeploy.log",
 
   // File to store the process id (pid)
-  "pid-file": "~/.gitautodeploy.pid",
+  //"pid-file": "~/.gitautodeploy.pid",
 
   // Record all log levels by default
   "log-level": "INFO",

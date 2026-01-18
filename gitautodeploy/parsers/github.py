@@ -44,5 +44,8 @@ class GitHubRequestParser(WebhookRequestParserBase):
         import hashlib
         import hmac
 
-        result = "sha1=" + hmac.new(str(token), body, hashlib.sha1).hexdigest()
+        token_bytes = token.encode('utf-8') if hasattr(token, 'encode') else str(token).encode('utf-8')
+        body_bytes = body.encode('utf-8') if hasattr(body, 'encode') else body
+        
+        result = "sha1=" + hmac.new(token_bytes, body_bytes, hashlib.sha1).hexdigest()
         return result == signature

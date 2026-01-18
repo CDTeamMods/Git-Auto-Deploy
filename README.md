@@ -1,4 +1,3 @@
-[![Build Status](https://travis-ci.org/olipo186/Git-Auto-Deploy.svg?branch=master)](https://travis-ci.org/olipo186/Git-Auto-Deploy)
 # What is it?
 
 Git-Auto-Deploy consists of a small HTTP server that listens for Webhook requests sent from GitHub, GitLab or Bitbucket servers. This application allows you to continuously and automatically deploy your projects each time you push new commits to your repository.</p>
@@ -15,41 +14,13 @@ Additionally, ```Git-Auto-Deploy``` can be configured to execute a shell command
 
 You can install ```Git-Auto-Deploy``` in multiple ways. Below are instructions for the most common methods.
 
-## Install from PPA (recommended for Ubuntu systems)
-
-[Using Debian? Have a look at this answer for instructions.](https://github.com/olipo186/Git-Auto-Deploy/issues/153)
-
-Add our PPA repository.
-
-    sudo apt-get install software-properties-common
-    sudo add-apt-repository ppa:olipo186/git-auto-deploy
-    sudo apt-get update
-
-Install ```Git-Auto-Deploy``` using apt.
-
-    sudo apt-get install git-auto-deploy
-
-Modify the configuration file to match your project setup. [Read more about the configuration options](./docs/Configuration.md).
-
-    nano /etc/git-auto-deploy.conf.json
-
-Optional: Copy any private SSH key you wish to use to the home directory of GAD. [Check out this document for more on SSH keys](./docs/add-ssh-keys.md)
-
-    sudo cp /path/to/id_rsa /etc/git-auto-deploy/.ssh/
-    sudo chown -R git-auto-deploy:git-auto-deploy /etc/git-auto-deploy
-
-Start ```Git-Auto-Deploy``` and check it's status.
-
-    service git-auto-deploy start
-    service git-auto-deploy status
-
 ## Install from repository (recommended for other systems)
 
-When installing ```Git-Auto-Deploy``` from the repository, you'll need to make sure that Python (tested on version 2.7) and Git (tested on version 2.5.0) is installed on your system.
+When installing ```Git-Auto-Deploy``` from the repository, you'll need to make sure that Python (tested on version 3.9) and Git (tested on version 2.x) is installed on your system.
 
 Clone the repository.
 
-    git clone https://github.com/olipo186/Git-Auto-Deploy.git
+    git clone https://github.com/CDTeamMods/Git-Auto-Deploy.git
 
 Install the dependencies with [pip](http://www.pip-installer.org/en/latest/), a package manager for Python, by running the following command.
 
@@ -60,26 +31,26 @@ line:
 
     curl https://bootstrap.pypa.io/get-pip.py | python
 
-Copy of the sample config and modify it. [Read more about the configuration options](./docs/Configuration.md). Make sure that ```pidfilepath``` is writable for the user running the script, as well as all paths configured for your repositories.
+Copy of the sample config and modify it. Read more about the configuration options. Make sure that ```pidfilepath``` is writable for the user running the script, as well as all paths configured for your repositories.
 
     cd Git-Auto-Deploy
     cp config.json.sample config.json
 
 Start ```Git-Auto-Deploy``` manually using;
 
-    python -m gitautodeploy --config config.json
+    python run.py --config config.json
 
 To start ```Git-Auto-Deploy``` automatically on boot, open crontab in edit mode using ```crontab -e``` and add the entry below.
 
-    @reboot /usr/bin/python -m /path/to/Git-Auto-Deploy/gitautodeploy --daemon-mode --quiet --config /path/to/git-auto-deploy.conf.json
+    @reboot /usr/bin/python /path/to/Git-Auto-Deploy/run.py --daemon-mode --quiet --config /path/to/git-auto-deploy.conf.json
 
-You can also configure ```Git-Auto-Deploy``` to start on boot using an init.d-script (for Debian and Sys-V like init systems) or a service for systemd.[Read more about starting Git-Auto-Deploy automatically using init.d or systemd](./docs/Start%20automatically%20on%20boot.md).
+You can also configure ```Git-Auto-Deploy``` to start on boot using an init.d-script (for Debian and Sys-V like init systems) or a service for systemd.Read more about starting Git-Auto-Deploy automatically using init.d or systemd.
 
 ## Install and run GAD under Windows
 GAD runs under Windows but requires some requisites.
 
-1. Install Python 2.7 using the [Windows installer](https://www.python.org/downloads/).
-2. Verify that Python is added to your [system PATH](https://technet.microsoft.com/en-us/library/cc772047(v=ws.11).aspx). Make sure ``C:\Python27`` and ``C:\Python27\Scripts`` is part of the PATH system environment variable.
+1. Install Python 3.x using the [Windows installer](https://www.python.org/downloads/).
+2. Verify that Python is added to your [system PATH](https://technet.microsoft.com/en-us/library/cc772047(v=ws.11).aspx). Make sure ``C:\Python3x`` and ``C:\Python3x\Scripts`` (or wherever you installed it) is part of the PATH system environment variable.
 3. Install pip using the [``get-pip.py`` script](https://pip.pypa.io/en/latest/installing/)
 4. Install Git using the [official Git build for Windows](https://git-scm.com/download/win)
 5. Verify that Git is added to your [system PATH](https://technet.microsoft.com/en-us/library/cc772047(v=ws.11).aspx). Make sure that ```C:\Program Files\Git\cmd``` is added (should have been added automatically by the installer) as well as ```C:\Program Files\Git\bin``` (*not* added by default).
@@ -87,13 +58,9 @@ GAD runs under Windows but requires some requisites.
 
 ## Alternative installation methods
 
-* [Install as a python module (experimental)](./docs/Install%20as%20a%20python%20module.md)
-* [Install as a debian package (experimental)](./docs/Install%20as%20a%20debian%20package.md)
-* [Start automatically on boot (init.d and systemd)](./docs/Start%20automatically%20on%20boot.md)
-
 ## Command line options
 
-Below is a summarized list of the most common command line options. For a full list of available command line options, invoke the application with the argument ```--help``` or read the documentation article about [all available command line options, environment variables and config attributes](./docs/Configuration.md).
+Below is a summarized list of the most common command line options. For a full list of available command line options, invoke the application with the argument ```--help``` or read the documentation article about all available command line options, environment variables and config attributes.
 
 Command line option    | Environment variable | Config attribute | Description
 ---------------------- | -------------------- | ---------------- | --------------------------
@@ -122,6 +89,20 @@ To make your git provider send notifications to ```Git-Auto-Deploy``` you will n
 1. Go to your repository -> Settings -> Webhooks -> Add webhook
 2. In "URL", enter your hostname and port (your-host:8001)
 3. Hit "Save"
+
+# Web Interface
+Git-Auto-Deploy comes with a built-in Web Interface that allows you to monitor the status of your deployments.
+
+To enable the Web Interface, update your `config.json`:
+```json
+{
+    "web-ui-enabled": true,
+    "web-ui-username": "admin",
+    "web-ui-password": "your-password",
+    "web-ui-whitelist": ["127.0.0.1"]
+}
+```
+By default, the Web UI is accessible at `https://your-host:8001/` (requires HTTPS configuration) or `http://your-host:8001/` if HTTPS is disabled (not recommended for production).
 
 # More documentation
 

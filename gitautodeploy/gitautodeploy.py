@@ -273,7 +273,7 @@ class GitAutoDeploy(object):
         self.create_pid_file()
 
         # Generate auth key to protect the web socket server
-        self._server_status['auth-key'] = base64.b64encode(os.urandom(32))
+        self._server_status['auth-key'] = base64.b64encode(os.urandom(32)).decode('utf-8')
 
         # Clear any existing lock files, with no regard to possible ongoing processes
         for repo_config in self._config['repositories']:
@@ -603,12 +603,12 @@ class GitAutoDeploy(object):
 
 def main():
     import signal
-    from gitautodeploy import GitAutoDeploy
-    from cli.config import get_config_defaults, get_config_from_environment
-    from cli.config import get_config_from_argv, find_config_file
-    from cli.config import get_config_from_file, get_repo_config_from_environment
-    from cli.config import init_config, get_config_file_path, rename_legacy_attribute_names
-    from cli.config import ConfigFileNotFoundException, ConfigFileInvalidException
+    from .gitautodeploy import GitAutoDeploy
+    from .cli.config import get_config_defaults, get_config_from_environment
+    from .cli.config import get_config_from_argv, find_config_file
+    from .cli.config import get_config_from_file, get_repo_config_from_environment
+    from .cli.config import init_config, get_config_file_path, rename_legacy_attribute_names
+    from .cli.config import ConfigFileNotFoundException, ConfigFileInvalidException
     import logging
     import sys
     import os

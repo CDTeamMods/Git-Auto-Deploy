@@ -23,7 +23,7 @@ data_files = package_files(package_path, "data")
 
 setup(name='git-auto-deploy',
       version='0.17',
-      url='https://github.com/olipo186/Git-Auto-Deploy',
+      url='https://github.com/CDTeamMods/Git-Auto-Deploy',
       author='Oliver Poignant',
       author_email='oliver@poignant.se',
       packages=find_packages(),
@@ -36,7 +36,8 @@ setup(name='git-auto-deploy',
       install_requires=[
             'lockfile',
             'autobahn',
-            'twisted'
+            'twisted',
+            'service_identity'
       ],
       description = "Deploy your GitHub, GitLab or Bitbucket projects automatically on Git push events or webhooks.",
       long_description = "GitAutoDeploy consists of a HTTP server that listens for Web hook requests sent from GitHub, GitLab or Bitbucket servers. This application allows you to continuously and automatically deploy you projects each time you push new commits to your repository."
