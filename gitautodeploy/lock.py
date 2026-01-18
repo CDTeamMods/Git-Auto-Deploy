@@ -1,4 +1,8 @@
 
+import os
+import logging
+from filelock import FileLock, Timeout
+
 class Lock():
     """Simple implementation of a mutex lock using filelock."""
 
@@ -7,14 +11,11 @@ class Lock():
     _owned = False
 
     def __init__(self, path):
-        from filelock import FileLock
         self.path = path
         self.lock = FileLock(path)
         self._owned = False
 
     def obtain(self):
-        import logging
-        from filelock import Timeout
         logger = logging.getLogger()
 
         try:
@@ -27,7 +28,6 @@ class Lock():
         return True
 
     def release(self):
-        import logging
         logger = logging.getLogger()
 
         if not self.has_lock():

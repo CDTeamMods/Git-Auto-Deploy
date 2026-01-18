@@ -5,6 +5,13 @@ import subprocess
 # Add current directory to path
 sys.path.insert(0, os.path.dirname(os.path.realpath(__file__)))
 
+# Check for critical dependencies
+try:
+    import filelock
+except ImportError:
+    print("Error: 'filelock' module is missing. Please run: pip install filelock")
+    sys.exit(1)
+
 def add_to_startup():
     """Adds current script to crontab to start on boot"""
     if os.name == 'nt':
@@ -13,8 +20,15 @@ def add_to_startup():
 
     python_path = sys.executable
     script_path = os.path.realpath(__file__)
+    work_dir = os.path.dirname(script_path)
+    config_path = os.path.join(work_dir, 'config.json')
+
     # Command to be executed on boot
-    command = f"{python_path} {script_path}"
+    # Uses daemon mode, quiet output and explicit config path.
+    # We use 'python -m gitautodeploy' which is the standard way to run the module,
+    # ensuring we change to the working directory first so relative paths in config work.
+    command = f"cd {work_dir} && {python_path} -m gitautodeploy --daemon-mode --quiet --config {config_path}"
+    
     # Crontab line
     cron_job = f"@reboot {command}"
     
