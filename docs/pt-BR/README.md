@@ -45,7 +45,7 @@ Inicie o ```Git-Auto-Deploy``` manualmente usando;
 
 Para iniciar o ```Git-Auto-Deploy``` automaticamente na inicialização, abra o crontab no modo de edição usando ```crontab -e``` e adicione a entrada abaixo.
 
-    @reboot /usr/bin/python /path/to/Git-Auto-Deploy/run.py --daemon-mode --quiet --config /path/to/git-auto-deploy.conf.json
+    python run.py startup
 
 Você também pode configurar o ```Git-Auto-Deploy``` para iniciar na inicialização usando um script init.d (para sistemas init como Debian e Sys-V) ou um serviço para systemd. Leia mais sobre como iniciar o Git-Auto-Deploy automaticamente usando init.d ou systemd.
 
